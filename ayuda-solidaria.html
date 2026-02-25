@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donaciones - FUMH Buenavista</title>
+    
+    
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+            min-height: 100vh;
+        }
+        
+        /* Header de donaciones */
+        .donation-hero {
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+            color: white;
+            text-align: center;
+            padding: 100px 20px 60px;
+            margin-top: 60px;
+            margin-bottom: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .donation-hero h1 {
+            font-size: 2.8rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .donation-hero p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+        
+        /* Contenedor principal */
+        .donation-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px 60px;
+        }
+        
+        /* Tarjetas de opciones */
+        .donation-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+        
+        .donation-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+            text-align: center;
+            border-top: 5px solid #e74c3c;
+        }
+        
+        .donation-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .donation-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: #e74c3c;
+        }
+        
+        .donation-card h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+        
+        /* QR Container */
+        .qr-section {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin: 30px 0;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        }
+        
+        .qr-image {
+            width: 250px;
+            height: 250px;
+            background: #f8f9fa;
+            border: 3px dashed #e74c3c;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: 20px auto;
+            padding: 20px;
+        }
+        
+        .qr-image i {
+            font-size: 4rem;
+            color: #e74c3c;
+            margin-bottom: 15px;
+        }
+        
+        /* Formulario principal */
+        .main-form {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            margin: 50px auto;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            max-width: 600px;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #2c3e50;
+            font-size: 1.1rem;
+        }
+        
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 14px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border 0.3s;
+        }
+        
+        .form-group input:focus,
+        .form-group select:focus {
+            border-color: #e74c3c;
+            outline: none;
+        }
+        
+        /* Botones */
+        .btn-whatsapp {
+            display: inline-block;
+            background: #25D366;
+            color: white;
+            padding: 16px 35px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(37, 211, 102, 0.3);
+        }
+        
+        .btn-whatsapp:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(37, 211, 102, 0.4);
+        }
+        
+        .btn-donation {
+            background: #e74c3c;
+            color: white;
+            padding: 16px 35px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(231, 76, 60, 0.3);
+            display: inline-block;
+        }
+        
+        .btn-donation:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(231, 76, 60, 0.4);
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .donation-hero h1 {
+                font-size: 2rem;
+            }
+            
+            .donation-hero p {
+                font-size: 1rem;
+            }
+            
+            .donation-cards {
+                grid-template-columns: 1fr;
+            }
+            
+            .qr-image {
+                width: 200px;
+                height: 200px;
+            }
+            
+            .main-form {
+                padding: 20px;
+            }
+        }
+        
+        /* Info boxes */
+        .info-box {
+            background: #e8f4f8;
+            border-left: 4px solid #3498db;
+            padding: 20px;
+            border-radius: 0 10px 10px 0;
+            margin: 25px 0;
+            text-align: left;
+        }
+        
+        .success-message {
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 20px;
+            display: none;
+        }
+        
+        /* Números flotantes de contacto */
+        .contact-float {
+            position: fixed;
+            bottom: 100px;
+            right: 25px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            z-index: 999;
+        }
+        
+        .contact-btn {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            text-decoration: none;
+            transition: transform 0.3s;
+        }
+        
+        .contact-btn:hover {
+            transform: scale(1.1);
+        }
+        
+        .btn-whatsapp-float {
+            background: #25D366;
+        }
+        
+        .btn-phone-float {
+            background: #3498db;
+        }
+        
+        .btn-email-float {
+            background: #e74c3c;
+        }
+    </style>
+</head>
+<body>
+    <!-- Overlay (igual que tu sitio) -->
+    <div class="overlay" id="overlay"></div>
+
+    <!-- HEADER (COPIA EXACTA DE TU index.html) -->
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo-container reveal-left">
+                    <img src="imagenes-fum/logotipofundacion.jpeg" alt="Logo FUMH" class="logo-img">
+                    <div class="logo-text">FUMH Buenavista</div>
+                </div>
+                
+                <button class="hamburger" id="hamburger" aria-label="Menú">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                
+                <ul class="dropdown-menu" id="dropdownMenu">
+                    <li><a href="index.html#inicio" class="reveal delay-1">Inicio</a></li>
+                    <li><a href="index.html#nosotros" class="reveal delay-2">Nosotros</a></li>
+                    <li><a href="index.html#programas" class="reveal delay-3">Programas</a></li>
+                    <li><a href="index.html#ayudar" class="reveal delay-4">Cómo Ayudar</a></li>
+                    <li><a href="index.html#contacto" class="reveal delay-5">Contacto</a></li>
+                    <li><a href="graduados.html" class="reveal delay-6">Graduados</a></li>
+                    <li><a href="ayuda-solidaria.html" class="reveal delay-7" style="color: #ff6b6b; font-weight: bold;">❤️ Donar Ahora</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- HERO SECTION DE DONACIONES -->
+    <div class="donation-hero">
+        <h1>Tu Donación Cambia Vidas ❤️</h1>
+        <p>Con tu apoyo, seguimos transformando la vida de niños y jóvenes en BuenaVista, Santa Cruz. Cada contribución nos ayuda a brindar educación, alimentación y esperanza en Cristo.</p>
+    </div>
+
+    <div class="donation-container">
+        <!-- OPCIONES DE DONACIÓN -->
+        <div class="donation-cards">
+            <!-- Opción 1: Transferencia -->
+            <div class="donation-card">
+                <div class="donation-icon">
+                    <i class="fas fa-university"></i>
+                </div>
+                <h3>Transferencia Bancaria</h3>
+                <p>Realiza tu donación directamente a nuestra cuenta</p>
+                
+                <div class="info-box">
+                    <h4><i class="fas fa-piggy-bank"></i> Datos Bancarios:</h4>
+                    <div style="background: white; padding: 15px; border-radius: 5px; margin: 15px 0; font-family: 'Courier New', monospace;">
+                        <p><strong>Banco:</strong> [TU BANCO]</p>
+                        <p><strong>Cuenta:</strong> [TU NÚMERO]</p>
+                        <p><strong>Titular:</strong> FUMH Buenavista</p>
+                        <p><strong>NIT/CI:</strong> [TU NIT]</p>
+                    </div>
+                    <p><i class="fas fa-info-circle"></i> <em>Emitimos recibos oficiales para deducción de impuestos</em></p>
+                </div>
+            </div>
+
+            <!-- Opción 2: QR -->
+            <div class="donation-card">
+                <div class="donation-icon">
+                    <i class="fas fa-qrcode"></i>
+                </div>
+                <h3>Pago con QR</h3>
+                <p>Escanea y paga desde tu app bancaria</p>
+                
+                <div class="qr-section">
+                    <div class="qr-image">
+                        <i class="fas fa-qrcode"></i>
+                        <p><strong>QR DE DONACIÓN</strong></p>
+                        <small>[Sube tu QR aquí]</small>
+                    </div>
+                    
+                    <div class="info-box">
+                        <h4><i class="fas fa-mobile-alt"></i> Cómo usar:</h4>
+                        <ol style="padding-left: 20px; margin: 10px 0;">
+                            <li>Abre tu app bancaria</li>
+                            <li>Busca "Pagar con QR"</li>
+                            <li>Escanea este código</li>
+                            <li>Confirma el pago</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Opción 3: Otras formas -->
+            <div class="donation-card">
+                <div class="donation-icon">
+                    <i class="fas fa-hands-helping"></i>
+                </div>
+                <h3>Otras Formas de Ayudar</h3>
+                <p>Tu apoyo va más allá de lo económico</p>
+                
+                <ul style="text-align: left; margin: 25px 0; padding-left: 20px;">
+                    <li><i class="fas fa-check" style="color: #27ae60;"></i> Materiales escolares</li>
+                    <li><i class="fas fa-check" style="color: #27ae60;"></i> Alimentos no perecederos</li>
+                    <li><i class="fas fa-check" style="color: #27ae60;"></i> Ropa y calzado</li>
+                    <li><i class="fas fa-check" style="color: #27ae60;"></i> Tiempo como voluntario</li>
+                </ul>
+                
+                <button class="btn-donation" onclick="contactUs()">
+                    <i class="fas fa-envelope"></i> Coordinar donación
+                </button>
+            </div>
+        </div>
+
+        <!-- FORMULARIO PRINCIPAL - LO MÁS IMPORTANTE -->
+        <div class="main-form">
+            <h2 style="text-align: center; color: #2c3e50; margin-bottom: 10px;">
+                <i class="fas fa-hand-holding-heart"></i> ¡Quiero Ayudar!
+            </h2>
+            <p style="text-align: center; color: #666; margin-bottom: 30px;">
+                Deja tus datos y te contactamos con toda la información
+            </p>
+            
+            <!-- FORMULARIO SIMPLE -->
+            <div class="form-group">
+                <label for="nombre"><i class="fas fa-user"></i> Tu Nombre Completo</label>
+                <input type="text" id="nombre" placeholder="Ej: María Fernández">
+            </div>
+            
+            <div class="form-group">
+                <label for="whatsapp"><i class="fab fa-whatsapp"></i> Tu WhatsApp</label>
+                <input type="tel" id="whatsapp" placeholder="Ej: 78945612">
+            </div>
+            
+            <div class="form-group">
+                <label for="tipoAyuda"><i class="fas fa-hands-helping"></i> ¿Cómo quieres ayudar?</label>
+                <select id="tipoAyuda">
+                    <option value="">Selecciona una opción</option>
+                    <option value="dinero">Donación en dinero</option>
+                    <option value="materiales">Materiales escolares</option>
+                    <option value="alimentos">Alimentos</option>
+                    <option value="ropa">Ropa y calzado</option>
+                    <option value="voluntariado">Ser voluntario</option>
+                    <option value="otro">Otra forma</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="mensaje"><i class="fas fa-comment"></i> Mensaje (opcional)</label>
+                <input type="text" id="mensaje" placeholder="¿Algo específico que quieras saber?">
+            </div>
+            
+            <button class="btn-whatsapp" style="width: 100%;" onclick="enviarSolicitud()">
+                <i class="fab fa-whatsapp"></i> Enviar por WhatsApp
+            </button>
+            
+            <!-- Mensaje de éxito -->
+            <div id="mensajeExito" class="success-message">
+                <i class="fas fa-check-circle"></i> ¡Gracias! Se abrirá WhatsApp para que envíes el mensaje.
+            </div>
+            
+            <p style="text-align: center; margin-top: 20px; color: #666; font-size: 0.9rem;">
+                <i class="fas fa-shield-alt"></i> Tus datos son confidenciales y solo se usarán para contactarte.
+            </p>
+        </div>
+
+        <!-- INFORMACIÓN ADICIONAL -->
+        <div style="background: #fff8e1; padding: 30px; border-radius: 15px; margin-top: 40px; border-left: 5px solid #ffb300;">
+            <h3 style="color: #e65100; margin-bottom: 20px;">
+                <i class="fas fa-info-circle"></i> Información Importante
+            </h3>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
+                <div>
+                    <h4><i class="fas fa-receipt"></i> Recibos Oficiales</h4>
+                    <p>Emitimos recibos deducibles de impuestos para todas las donaciones.</p>
+                </div>
+                
+                <div>
+                    <h4><i class="fas fa-chart-line"></i> Transparencia Total</h4>
+                    <p>Publicamos informes anuales del uso de los fondos recibidos.</p>
+                </div>
+                
+                <div>
+                    <h4><i class="fas fa-hands"></i> Impacto Real</h4>
+                    <p>100% de las donaciones se destinan directamente a los programas.</p>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 30px;">
+                <p><strong>📍 Dirección:</strong> BuenaVista, Santa Cruz - Bolivia</p>
+                <p><strong>📞 Teléfono:</strong> 7466 7906</p>
+                <p><strong>📧 Email:</strong> choredaza2709@gmail.com</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER (COPIA DE TU index.html) -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-info">
+                <h3>FUMH Buenavista</h3>
+                <p>Centro Compassion International - Transformando vidas con el amor de Cristo</p>
+                <p>© 2024 Todos los derechos reservados.</p>
+                <p class="footer-subtext">BuenaVista, Santa Cruz - Bolivia</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- BOTONES FLOTANTES DE CONTACTO -->
+    <div class="contact-float">
+        <a href="https://wa.me/59174667906?text=Hola,%20quiero%20información%20para%20donar%20a%20FUMH%20Buenavista" 
+           target="_blank" 
+           class="contact-btn btn-whatsapp-float"
+           aria-label="WhatsApp">
+            <i class="fab fa-whatsapp"></i>
+        </a>
+        
+        <a href="tel:74667906" 
+           class="contact-btn btn-phone-float"
+           aria-label="Llamar">
+            <i class="fas fa-phone"></i>
+        </a>
+        
+        <a href="mailto:choredaza2709@gmail.com?subject=Donación%20FUMH%20Buenavista" 
+           class="contact-btn btn-email-float"
+           aria-label="Email">
+            <i class="fas fa-envelope"></i>
+        </a>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        // FUNCIÓN PRINCIPAL - ENVÍA POR WHATSAPP
+        function enviarSolicitud() {
+            // Obtener datos del formulario
+            const nombre = document.getElementById('nombre').value.trim();
+            const whatsapp = document.getElementById('whatsapp').value.trim();
+            const tipoAyuda = document.getElementById('tipoAyuda').value;
+            const mensaje = document.getElementById('mensaje').value.trim();
+            
+            // Validar campos obligatorios
+            if (!nombre || !whatsapp || !tipoAyuda) {
+                alert('Por favor completa: Nombre, WhatsApp y Tipo de Ayuda');
+                return;
+            }
+            
+            // Validar número de WhatsApp
+            if (!/^[0-9]{7,15}$/.test(whatsapp)) {
+                alert('Por favor ingresa un número de WhatsApp válido (solo números, 7-15 dígitos)');
+                return;
+            }
+            
+            // TU NÚMERO DE WHATSAPP - ¡CÁMBIALO POR EL TUYO!
+            const tuWhatsApp = '59174667906'; // Formato: 591 + número (sin 0 inicial)
+            
+            // Crear mensaje para WhatsApp
+            const texto = `*NUEVA SOLICITUD DE DONACIÓN - FUMH BUENAVISTA*%0A%0A` +
+                         `*👤 Nombre:* ${nombre}%0A` +
+                         `*📱 WhatsApp:* ${whatsapp}%0A` +
+                         `*❤️ Tipo de ayuda:* ${tipoAyuda}%0A` +
+                         (mensaje ? `*💬 Mensaje:* ${mensaje}%0A` : '') +
+                         `*📅 Fecha:* ${new Date().toLocaleDateString('es-BO')}%0A` +
+                         `*⏰ Hora:* ${new Date().toLocaleTimeString('es-BO', {hour: '2-digit', minute:'2-digit'})}%0A%0A` +
+                         `_Este mensaje fue enviado desde la página web de donaciones._`;
+            
+            // Abrir WhatsApp
+            window.open(`https://wa.me/${tuWhatsApp}?text=${encodeURIComponent(texto)}`, '_blank');
+            
+            // Mostrar mensaje de éxito
+            document.getElementById('mensajeExito').style.display = 'block';
+            
+            // Limpiar formulario después de 2 segundos
+            setTimeout(() => {
+                document.getElementById('nombre').value = '';
+                document.getElementById('whatsapp').value = '';
+                document.getElementById('tipoAyuda').value = '';
+                document.getElementById('mensaje').value = '';
+                document.getElementById('mensajeExito').style.display = 'none';
+            }, 3000);
+            
+            // Opcional: Guardar en localStorage (solo para estadísticas)
+            try {
+                const donantes = JSON.parse(localStorage.getItem('donantes_fumh') || '[]');
+                donantes.push({
+                    nombre: nombre,
+                    fecha: new Date().toISOString(),
+                    tipo: tipoAyuda
+                });
+                localStorage.setItem('donantes_fumh', JSON.stringify(donantes));
+            } catch (e) {
+                // Silencioso - no es esencial
+            }
+        }
+        
+        // Función para contactar por email
+        function contactUs() {
+            window.location.href = 'mailto:choredaza2709@gmail.com?subject=Coordinar donación FUMH&body=Hola, me interesa coordinar una donación de materiales/alimentos. Por favor contáctenme.';
+        }
+        
+        // Menú hamburguesa (igual que tu sitio)
+        document.addEventListener('DOMContentLoaded', function() {
+            const hamburger = document.getElementById('hamburger');
+            const dropdownMenu = document.getElementById('dropdownMenu');
+            const overlay = document.getElementById('overlay');
+            
+            if (hamburger && dropdownMenu) {
+                hamburger.addEventListener('click', function() {
+                    dropdownMenu.classList.toggle('active');
+                    overlay.classList.toggle('active');
+                    
+                    const spans = hamburger.querySelectorAll('span');
+                    if (dropdownMenu.classList.contains('active')) {
+                        spans[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
+                        spans[1].style.opacity = '0';
+                        spans[2].style.transform = 'rotate(-45deg) translate(7px, -6px)';
+                    } else {
+                        spans[0].style.transform = 'none';
+                        spans[1].style.opacity = '1';
+                        spans[2].style.transform = 'none';
+                    }
+                });
+                
+                if (overlay) {
+                    overlay.addEventListener('click', function() {
+                        dropdownMenu.classList.remove('active');
+                        overlay.classList.remove('active');
+                        const spans = hamburger.querySelectorAll('span');
+                        spans[0].style.transform = 'none';
+                        spans[1].style.opacity = '1';
+                        spans[2].style.transform = 'none';
+                    });
+                }
+            }
+            
+            // Animaciones al scroll
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-zoom').forEach(el => {
+                observer.observe(el);
+            });
+            
+            // Auto-seleccionar WhatsApp al hacer clic
+            document.getElementById('whatsapp').addEventListener('click', function() {
+                this.select();
+            });
+            
+            // Enviar con Enter en el último campo
+            document.getElementById('mensaje').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    enviarSolicitud();
+                }
+            });
+        });
+    </script>
+</body>
+</html>

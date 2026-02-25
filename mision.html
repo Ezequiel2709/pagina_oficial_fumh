@@ -1,0 +1,908 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Misión - FUMH Buenavista</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* ============================================
+           ESTILOS ESPECÍFICOS PARA PÁGINA DE MISIÓN
+           ============================================ */
+        .mision-page {
+            padding-top: 80px;
+            min-height: 100vh;
+        }
+        
+        /* ===== HERO SECTION CON CARRUSEL ===== */
+        .carousel-container {
+            position: relative;
+            width: 100%;
+            height: 70vh;
+            min-height: 500px;
+            overflow: hidden;
+            margin-bottom: 80px;
+        }
+        
+        .carousel-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .carousel-slide.active {
+            opacity: 1;
+        }
+        
+        .slide-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        
+        .slide-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.8));
+        }
+        
+        .slide-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            color: white;
+            padding: 0 20px;
+            max-width: 800px;
+        }
+        
+        .slide-title {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.5);
+        }
+        
+        .slide-text {
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+            text-shadow: 1px 1px 5px rgba(0,0,0,0.5);
+        }
+        
+        .slide-number {
+            font-size: 1rem;
+            background: rgba(255,255,255,0.2);
+            padding: 5px 15px;
+            border-radius: 20px;
+            display: inline-block;
+            backdrop-filter: blur(5px);
+        }
+        
+        /* CONTROLES DEL CARRUSEL */
+        .carousel-controls {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            z-index: 10;
+        }
+        
+        .carousel-btn {
+            background: rgba(255,255,255,0.3);
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+        }
+        
+        .carousel-btn:hover {
+            background: rgba(255,255,255,0.5);
+            transform: scale(1.1);
+        }
+        
+        .carousel-dots {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.4);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .dot.active {
+            background: white;
+            transform: scale(1.3);
+        }
+        
+        /* ===== CONTENIDO PRINCIPAL ===== */
+        .mision-content {
+            max-width: 1200px;
+            margin: 0 auto 80px;
+            padding: 0 20px;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .section-header h2 {
+            font-size: 2.8rem;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+        
+        .section-icon {
+            font-size: 3rem;
+            color: #27ae60;
+        }
+        
+        .section-subtitle {
+            font-size: 1.2rem;
+            color: #7f8c8d;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        /* ===== DECLARACIÓN DE MISIÓN ===== */
+        .mision-declaracion {
+            background: linear-gradient(135deg, #27ae60, #2ecc71);
+            padding: 60px 40px;
+            border-radius: 20px;
+            color: white;
+            text-align: center;
+            margin: 50px 0;
+            box-shadow: 0 20px 40px rgba(39, 174, 96, 0.3);
+        }
+        
+        .mision-declaracion h3 {
+            font-size: 2rem;
+            margin-bottom: 30px;
+            font-weight: 300;
+            letter-spacing: 1px;
+        }
+        
+        .mision-texto-principal {
+            font-size: 2.2rem;
+            font-weight: 800;
+            line-height: 1.4;
+            max-width: 900px;
+            margin: 0 auto 30px;
+        }
+        
+        .mision-cita {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            font-style: italic;
+        }
+        
+        /* ===== PILARES DE LA MISIÓN ===== */
+        .pilares-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 60px 0;
+        }
+        
+        .pilar-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            border-bottom: 5px solid #27ae60;
+        }
+        
+        .pilar-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+        
+        .pilar-icon {
+            width: 80px;
+            height: 80px;
+            background: #27ae60;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 30px auto 20px;
+            color: white;
+            font-size: 2rem;
+        }
+        
+        .pilar-content {
+            padding: 0 30px 30px;
+            text-align: center;
+        }
+        
+        .pilar-content h3 {
+            color: #2c3e50;
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+        
+        .pilar-content p {
+            color: #666;
+            line-height: 1.6;
+        }
+        
+        /* ===== ÁREAS DE ACCIÓN ===== */
+        .acciones-section {
+            margin: 80px 0;
+        }
+        
+        .acciones-titulo {
+            text-align: center;
+            font-size: 2.2rem;
+            color: #2c3e50;
+            margin-bottom: 50px;
+        }
+        
+        .acciones-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+        }
+        
+        .accion-item {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 1px solid #e0e0e0;
+        }
+        
+        .accion-item:hover {
+            background: #27ae60;
+            color: white;
+            transform: scale(1.05);
+        }
+        
+        .accion-item:hover .accion-icono {
+            color: white;
+        }
+        
+        .accion-icono {
+            font-size: 2.5rem;
+            color: #27ae60;
+            margin-bottom: 20px;
+            transition: color 0.3s ease;
+        }
+        
+        .accion-item h4 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+        }
+        
+        /* ===== LÍNEA DE TIEMPO ===== */
+        .timeline-section {
+            margin: 80px 0;
+        }
+        
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 50px auto;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 100%;
+            background: #27ae60;
+        }
+        
+        .timeline-item {
+            margin-bottom: 50px;
+            position: relative;
+            width: 50%;
+            padding: 20px;
+        }
+        
+        .timeline-item:nth-child(odd) {
+            left: 0;
+            text-align: right;
+            padding-right: 60px;
+        }
+        
+        .timeline-item:nth-child(even) {
+            left: 50%;
+            padding-left: 60px;
+        }
+        
+        .timeline-dot {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: white;
+            border: 4px solid #27ae60;
+            border-radius: 50%;
+            top: 20px;
+        }
+        
+        .timeline-item:nth-child(odd) .timeline-dot {
+            right: -8px;
+        }
+        
+        .timeline-item:nth-child(even) .timeline-dot {
+            left: -8px;
+        }
+        
+        .timeline-year {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #27ae60;
+            margin-bottom: 10px;
+        }
+        
+        .timeline-content {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        /* ===== CALL TO ACTION ===== */
+        .cta-section {
+            text-align: center;
+            padding: 80px 20px;
+            background: linear-gradient(135deg, #27ae60, #2ecc71);
+            border-radius: 20px;
+            color: white;
+            margin: 80px 0;
+        }
+        
+        .cta-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+        
+        .cta-section p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 40px;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            padding: 15px 35px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .btn-primary {
+            background: white;
+            color: #27ae60;
+        }
+        
+        .btn-primary:hover {
+            background: #f8f9fa;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+        
+        .btn-secondary:hover {
+            background: rgba(255,255,255,0.1);
+            transform: translateY(-3px);
+        }
+        
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .carousel-container {
+                height: 60vh;
+                min-height: 400px;
+            }
+            
+            .slide-title {
+                font-size: 2.5rem;
+            }
+            
+            .slide-text {
+                font-size: 1.2rem;
+            }
+            
+            .mision-texto-principal {
+                font-size: 1.8rem;
+            }
+            
+            .section-header h2 {
+                font-size: 2.2rem;
+                flex-direction: column;
+            }
+            
+            .timeline::before {
+                left: 20px;
+            }
+            
+            .timeline-item {
+                width: 100%;
+                left: 0 !important;
+                text-align: left !important;
+                padding: 20px 20px 20px 60px !important;
+            }
+            
+            .timeline-item:nth-child(odd) .timeline-dot,
+            .timeline-item:nth-child(even) .timeline-dot {
+                left: 12px;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .slide-title {
+                font-size: 2rem;
+            }
+            
+            .mision-texto-principal {
+                font-size: 1.5rem;
+            }
+            
+            .section-header h2 {
+                font-size: 1.8rem;
+            }
+        }
+        
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+        
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header (igual que en visión.html) -->
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo-container">
+                    <img src="imagenes-fum/fundacion.jpg" alt="Logo FUMH" class="logo-img">
+                    <div class="logo-text">FUMH Buenavista</div>
+                </div>
+                <button class="hamburger" id="hamburger" aria-label="Menú">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                <ul class="dropdown-menu" id="dropdownMenu">
+                    <li><a href="index.html#inicio" class="menu-enlace">Inicio</a></li>
+                    <li class="menu-item has-submenu">
+                        <a href="index.html#nosotros" class="menu-enlace">
+                            Nosotros 
+                            <span class="submenu-arrow">▼</span>
+                        </a>
+                        <ul class="submenu">
+                            <li><a href="vision.html" class="submenu-enlace">👁️ Visión</a></li>
+                            <li><a href="mision.html" class="submenu-enlace">🎯 Misión</a></li>
+                            <li><a href="director.html" class="submenu-enlace">👨‍💼 Director y Plantel</a></li>
+                            <li><a href="trabajamos.html" class="submenu-enlace">📍 ¿Dónde Trabajamos?</a></li>
+                            <li><a href="hacemos.html" class="submenu-enlace">🛠️ ¿Qué Hacemos?</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="index.html#programas" class="menu-enlace">Programas</a></li>
+                    <li><a href="index.html#ayudar" class="menu-enlace">Cómo Ayudar</a></li>
+                    <li><a href="index.html#contacto" class="menu-enlace">Contacto</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- PÁGINA DE MISIÓN -->
+    <main class="mision-page">
+        <!-- CARRUSEL DE IMÁGENES -->
+        <section class="carousel-container">
+            <!-- Slide 1 - Niños aprendiendo -->
+            <div class="carousel-slide active">
+                <img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80" 
+                     alt="Niños estudiando" class="slide-image">
+                <div class="slide-overlay"></div>
+                <div class="slide-content">
+                    <h1 class="slide-title">Educación con Propósito</h1>
+                    <p class="slide-text">Brindamos educación integral basada en valores cristianos para formar líderes del mañana.</p>
+                    <div class="slide-number">01 / 03</div>
+                </div>
+            </div>
+            
+            <!-- Slide 2 - Comunidad -->
+            <div class="carousel-slide">
+                <img src="https://images.unsplash.com/photo-1593113598338-cd288d649433?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80" 
+                     alt="Comunidad unida" class="slide-image">
+                <div class="slide-overlay"></div>
+                <div class="slide-content">
+                    <h1 class="slide-title">Fortalecer Familias</h1>
+                    <p class="slide-text">Trabajamos junto a las familias para crear un entorno de apoyo y crecimiento espiritual.</p>
+                    <div class="slide-number">02 / 03</div>
+                </div>
+            </div>
+            
+            <!-- Slide 3 - Desarrollo integral -->
+            <div class="carousel-slide">
+                <img src="https://images.unsplash.com/photo-1577896851231-70ef18881754?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80" 
+                     alt="Desarrollo integral" class="slide-image">
+                <div class="slide-overlay"></div>
+                <div class="slide-content">
+                    <h1 class="slide-title">Desarrollo Integral</h1>
+                    <p class="slide-text">Atendemos las necesidades espirituales, físicas, emocionales y sociales de cada niño.</p>
+                    <div class="slide-number">03 / 03</div>
+                </div>
+            </div>
+            
+            <!-- Controles del carrusel -->
+            <div class="carousel-controls">
+                <button class="carousel-btn prev-btn">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <div class="carousel-dots">
+                    <div class="dot active" data-slide="0"></div>
+                    <div class="dot" data-slide="1"></div>
+                    <div class="dot" data-slide="2"></div>
+                </div>
+                <button class="carousel-btn next-btn">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+        </section>
+
+        <!-- CONTENIDO PRINCIPAL -->
+        <section class="mision-content">
+            <!-- Encabezado -->
+            <div class="section-header fade-in">
+                <h2>
+                    <span class="section-icon">🎯</span>
+                    Nuestra Misión
+                </h2>
+                <p class="section-subtitle">El propósito que guía cada acción que realizamos en FUMH Buenavista</p>
+            </div>
+            
+            <!-- Declaración de Misión -->
+            <div class="mision-declaracion fade-in">
+                <h3>DECLARACIÓN DE MISIÓN</h3>
+                <div class="mision-texto-principal">
+                    "Guiar a niños y adolescentes hacia un encuentro personal con Jesucristo, proporcionándoles educación, cuidado integral y desarrollo de habilidades para la vida, en colaboración con sus familias y la comunidad."
+                </div>
+                <div class="mision-cita">
+                    — Proverbios 22:6 "Instruye al niño en su camino, y aún cuando fuere viejo no se apartará de él."
+                </div>
+            </div>
+            
+            <!-- Pilares de la Misión -->
+            <h3 class="acciones-titulo fade-in">Pilares Fundamentales</h3>
+            <div class="pilares-grid">
+                <div class="pilar-card fade-in">
+                    <div class="pilar-icon">
+                        <i class="fas fa-cross"></i>
+                    </div>
+                    <div class="pilar-content">
+                        <h3>Formación Espiritual</h3>
+                        <p>Guiar a cada niño a conocer y seguir a Jesucristo, desarrollando una fe personal y valores cristianos sólidos.</p>
+                    </div>
+                </div>
+                
+                <div class="pilar-card fade-in">
+                    <div class="pilar-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <div class="pilar-content">
+                        <h3>Excelencia Académica</h3>
+                        <p>Proveer educación de calidad que prepare a los niños para un futuro lleno de oportunidades.</p>
+                    </div>
+                </div>
+                
+                <div class="pilar-card fade-in">
+                    <div class="pilar-icon">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <div class="pilar-content">
+                        <h3>Desarrollo Integral</h3>
+                        <p>Atender las necesidades físicas, emocionales y sociales de cada niño para un crecimiento equilibrado.</p>
+                    </div>
+                </div>
+                
+                <div class="pilar-card fade-in">
+                    <div class="pilar-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="pilar-content">
+                        <h3>Trabajo en Familia</h3>
+                        <p>Involucrar a las familias en el proceso, fortaleciendo los lazos y creando un entorno de apoyo.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Áreas de Acción -->
+            <section class="acciones-section">
+                <h3 class="acciones-titulo fade-in">Nuestras Áreas de Acción</h3>
+                <div class="acciones-grid">
+                    <div class="accion-item fade-in">
+                        <div class="accion-icono">
+                            <i class="fas fa-bible"></i>
+                        </div>
+                        <h4>Educación Cristiana</h4>
+                        <p>Enseñanza bíblica, devocionales y formación en valores cristianos.</p>
+                    </div>
+                    
+                    <div class="accion-item fade-in">
+                        <div class="accion-icono">
+                            <i class="fas fa-book"></i>
+                        </div>
+                        <h4>Refuerzo Escolar</h4>
+                        <p>Tutorías personalizadas y seguimiento académico continuo.</p>
+                    </div>
+                    
+                    <div class="accion-item fade-in">
+                        <div class="accion-icono">
+                            <i class="fas fa-apple-alt"></i>
+                        </div>
+                        <h4>Nutrición</h4>
+                        <p>Alimentación balanceada y educación en hábitos saludables.</p>
+                    </div>
+                    
+                    <div class="accion-item fade-in">
+                        <div class="accion-icono">
+                            <i class="fas fa-hand-holding-heart"></i>
+                        </div>
+                        <h4>Atención Psicosocial</h4>
+                        <p>Acompañamiento emocional y consejería familiar.</p>
+                    </div>
+                    
+                    <div class="accion-item fade-in">
+                        <div class="accion-icono">
+                            <i class="fas fa-futbol"></i>
+                        </div>
+                        <h4>Recreación</h4>
+                        <p>Actividades deportivas y recreativas para desarrollo social.</p>
+                    </div>
+                    
+                    <div class="accion-item fade-in">
+                        <div class="accion-icono">
+                            <i class="fas fa-briefcase"></i>
+                        </div>
+                        <h4>Habilidades para la Vida</h4>
+                        <p>Talleres de oficios y desarrollo de talentos.</p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Línea de Tiempo - Logros -->
+            <section class="timeline-section">
+                <div class="section-header fade-in">
+                    <h2>📅 Nuestros Logros</h2>
+                    <p class="section-subtitle">Hitos importantes en nuestra misión</p>
+                </div>
+                
+                <div class="timeline">
+                    <div class="timeline-item fade-in">
+                        <div class="timeline-year">2005</div>
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <h3>Fundación</h3>
+                            <p>Iniciamos nuestra misión con 25 niños en un pequeño espacio prestado.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item fade-in">
+                        <div class="timeline-year">2010</div>
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <h3>Primera Promoción</h3>
+                            <p>15 niños se graduaron de nuestro programa infantil.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item fade-in">
+                        <div class="timeline-year">2015</div>
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <h3>Ampliación</h3>
+                            <p>Inauguramos nuestras instalaciones actuales para atender a 100 niños.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item fade-in">
+                        <div class="timeline-year">2020</div>
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <h3>Programa de Adolescentes</h3>
+                            <p>Lanzamos nuestro programa para jóvenes de 12-18 años.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item fade-in">
+                        <div class="timeline-year">2024</div>
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <h3>Más de 2,500 vidas</h3>
+                            <p>Alcanzamos la meta de impactar a más de 2,500 niños y familias.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Call to Action -->
+            <section class="cta-section fade-in">
+                <h2>Únete a Nuestra Misión</h2>
+                <p>Tu apoyo puede cambiar la vida de un niño. Juntos podemos seguir transformando vidas con el amor de Cristo.</p>
+                <div class="cta-buttons">
+                    <a href="index.html#ayudar" class="btn btn-primary">
+                        <i class="fas fa-handshake"></i>
+                        Ser Voluntario
+                    </a>
+                    <a href="index.html#contacto" class="btn btn-secondary">
+                        <i class="fas fa-heart"></i>
+                        Hacer una Donación
+                    </a>
+                </div>
+            </section>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-info">
+                <h3>FUMH Buenavista</h3>
+                <p>Centro Compassion International - Transformando vidas con el amor de Cristo</p>
+                <p>© 2024 Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Botones Flotantes -->
+    <div class="botones-flotantes-redes">
+        <a href="https://www.facebook.com/ezequiel.choredaza.5" class="btn-red-flotante btn-red-facebook">
+            <i class="fab fa-facebook-f"></i>
+        </a>
+        <a href="https://www.tiktok.com/@user27_09_2006" class="btn-red-flotante btn-red-tiktok">
+            <i class="fab fa-tiktok"></i>
+        </a>
+        <a href="https://wa.me/59174667906" class="btn-red-flotante btn-red-whatsapp">
+            <i class="fab fa-whatsapp"></i>
+            <span class="badge-whatsapp">!</span>
+        </a>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="script.js"></script>
+    <script>
+        // JavaScript para el carrusel y animaciones
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🎯 Página de Misión iniciada');
+            
+            // CARRUSEL
+            const slides = document.querySelectorAll('.carousel-slide');
+            const dots = document.querySelectorAll('.dot');
+            const prevBtn = document.querySelector('.prev-btn');
+            const nextBtn = document.querySelector('.next-btn');
+            let currentSlide = 0;
+            let carouselInterval;
+            
+            function showSlide(n) {
+                slides.forEach(slide => slide.classList.remove('active'));
+                dots.forEach(dot => dot.classList.remove('active'));
+                
+                currentSlide = (n + slides.length) % slides.length;
+                slides[currentSlide].classList.add('active');
+                dots[currentSlide].classList.add('active');
+            }
+            
+            function nextSlide() { showSlide(currentSlide + 1); }
+            function prevSlide() { showSlide(currentSlide - 1); }
+            
+            if (slides.length > 0) {
+                if (nextBtn) nextBtn.addEventListener('click', function() {
+                    clearInterval(carouselInterval);
+                    nextSlide();
+                    startCarousel();
+                });
+                
+                if (prevBtn) prevBtn.addEventListener('click', function() {
+                    clearInterval(carouselInterval);
+                    prevSlide();
+                    startCarousel();
+                });
+                
+                dots.forEach((dot, index) => {
+                    dot.addEventListener('click', function() {
+                        clearInterval(carouselInterval);
+                        showSlide(index);
+                        startCarousel();
+                    });
+                });
+                
+                function startCarousel() {
+                    carouselInterval = setInterval(nextSlide, 5000);
+                }
+                
+                startCarousel();
+            }
+            
+            // ANIMACIONES AL SCROLL
+            function initScrollAnimations() {
+                const elements = document.querySelectorAll('.fade-in');
+                function checkScroll() {
+                    elements.forEach(el => {
+                        const rect = el.getBoundingClientRect();
+                        if (rect.top < window.innerHeight - 100) {
+                            el.classList.add('visible');
+                        }
+                    });
+                }
+                checkScroll();
+                window.addEventListener('scroll', checkScroll);
+            }
+            
+            setTimeout(initScrollAnimations, 300);
+            
+            // WhatsApp
+            const whatsappBtn = document.querySelector('.btn-red-whatsapp');
+            if (whatsappBtn) {
+                whatsappBtn.href = `https://wa.me/59174667906?text=${encodeURIComponent('Hola, me contacto desde la página de Misión de FUMH Buenavista')}`;
+            }
+        });
+    </script>
+</body>
+</html>

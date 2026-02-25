@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Centro Compassion Buenavista - Santa Cruz, Bolivia</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Overlay para fondo oscuro -->
+    <div class="overlay" id="overlay"></div>
+
+    <!-- Panel de Graduados (desplegable lateral) -->
+    <div class="panel-graduados" id="panelGraduados">
+        <div class="panel-header">
+            <h2 class="reveal">🎓 Nuestros Graduados</h2>
+            <button class="cerrar-panel" id="cerrarPanel">×</button>
+        </div>
+        
+        <div class="galeria-graduados">
+            <div class="foto-graduado reveal-zoom delay-1">
+                <img src="imagenes-fum/grupal2025.jpeg" alt="Promoción GAP 2025">
+                <div class="info-graduado">
+                    <div class="nombre-graduado"></div>
+                    <div class="promocion-graduado">Promoción GAP 2025</div>
+                </div>
+                <img src="imagenes-fum/naty.jpeg" alt="Nathalia Choré - Promocion 2025">
+                <div class="info-graduado">
+                    <div class="nombre-graduado">Nathalia Choré</div>
+                    <div class="promocion-graduado">Promoción 2025</div>
+                </div>
+                <img src="imagenes-fum/becka.jpeg" alt="Lisbeth Mendoza - Promocion 2025">
+                <div class="info-graduado">
+                    <div class="nombre-graduado">Lisbeth Mendoza</div>
+                    <div class="promocion-graduado">Promoción 2025</div>
+                </div>
+                <img src="imagenes-fum/josue.jpeg" alt="Josue - Promocion 2025">
+                <div class="info-graduado">
+                    <div class="nombre-graduado">Josue Lopéz</div>
+                    <div class="promocion-graduado">Promoción 2025</div>
+                </div>
+                <img src="imagenes-fum/yass.jpeg" alt="Yass - Promocion 2025">
+                <div class="info-graduado">
+                    <div class="nombre-graduado">Yasmin Garcia</div>
+                    <div class="promocion-graduado">Promoción 2025</div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Header con Navegación -->
+    <header>
+        <div class="container">
+            <nav>
+                <!-- Logo y título -->
+                <div class="logo-container reveal-left">
+                    <img src="imagenes-fum/logotipofundacion.jpeg" alt="Logo FUMH" class="logo-img">
+                    <div class="logo-text">FUMH Buenavista</div>
+                </div>
+                
+                <!-- Botón Hamburguesa (solo visible en móvil) -->
+                <button class="hamburger" id="hamburger" aria-label="Menú">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                
+                <!-- Menú de Navegación -->
+                <!-- Menú de Navegación CON SUBMENÚ -->
+<ul class="dropdown-menu" id="dropdownMenu">
+    <li><a href="#inicio" class="reveal delay-1">Inicio</a></li>
+    
+    <!-- Nosotros con Submenú -->
+    <li class="menu-item has-submenu">
+        <a href="#nosotros" class="reveal delay-2 menu-enlace">
+            Nosotros 
+            <span class="submenu-arrow">▼</span>
+        </a>
+        <ul class="submenu">
+            <li><a href="vision.html" class="submenu-enlace">Visión</a></li>
+            <li><a href="mision.html" class="submenu-enlace"> Misión</a></li>
+            <li><a href="director.html" class="submenu-enlace"> Director y Plantel</a></li>
+            <li><a href="ubicacion.html" class="submenu-enlace"> ¿Dónde Trabajamos?</a></li>
+            <li><a href="hacemos.html" class="submenu-enlace"> ¿Qué Hacemos?</a></li>
+        </ul>
+    </li>
+    
+    <li><a href="#programas" class="reveal delay-3">Programas</a></li>
+    <li><a href="#ayudar" class="reveal delay-4">Cómo Ayudar</a></li>
+    <li><a href="#contacto" class="reveal delay-5">Contacto</a></li>
+    <li><a href="graduados.html" class="reveal delay-6">Graduados</a></li>
+    <li><a href="ayuda-solidaria.html" class="reveal delay-7">Donaciones</a></li>
+</ul>
+        </div>
+    </header>
+
+    <!-- Sección Hero (Inicio) -->
+    <section id="inicio" class="hero">
+        <div class="hero-content"> 
+            <h1 class="reveal">Transformando Vidas con el Amor de Cristo</h1>
+            <p class="reveal delay-1">FUNDACION MONTE HOREB BuenaVista - Santa Cruz - Bolivia</p>
+            <a href="#ayudar" class="btn reveal delay-2">Únete a Nuestra Misión</a>
+        </div>
+    </section>
+
+    <!-- Sección Nosotros -->
+    <section id="nosotros">
+        <div class="container">
+            <h2 class="section-title reveal-left">Nuestra Historia</h2>
+            <div class="nosotros-content">
+                <p class="reveal delay-1">Por más de 18 años, hemos servido como centro de Compassion International en BuenaVista, Santa Cruz, Bolivia, dedicados a liberar a los niños de la pobreza espiritual, económica, social y física.</p>
+                
+                <h3 class="reveal-left delay-2">Nuestra Misión</h3>
+                <p class="reveal delay-3">Guiar a niños y adolescentes hacia un encuentro personal con Jesucristo, proporcionándoles educación, cuidado integral y desarrollo de habilidades para la vida.</p>
+                
+                <h3 class="reveal-left delay-4">Nuestra Visión</h3>
+                <p class="reveal delay-5">Ver a cada niño convertido en un adulto responsable, autosuficiente y comprometido con su comunidad y con Dios.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección Programas -->
+    <section id="programas" class="programas-section">
+        <div class="container">
+            <h2 class="section-title reveal-right">Nuestros Programas</h2>
+            <div class="programs-grid">
+                <div class="program-card reveal-zoom delay-1">
+                    <h3>Programa Infantil</h3>
+                    <p>Atención integral para niños de 3-11 años con educación cristiana, refuerzo escolar y alimentación nutritiva.</p>
+                </div>
+                
+                <div class="program-card reveal-zoom delay-2">
+                    <h3>Programa Adolescentes</h3>
+                    <p>Formación en valores, discipulado cristiano y desarrollo de habilidades para jóvenes de 12-18 años.</p>
+                </div>
+                
+                <div class="program-card reveal-zoom delay-3">
+                    <h3>Escuela para Padres</h3>
+                    <p>Capacitación y apoyo espiritual para familias, fortaleciendo los lazos familiares desde principios cristianos.</p>
+                </div>
+                
+                <div class="program-card reveal-zoom delay-4">
+                    <h3>Apoyo Educativo</h3>
+                    <p>Tutorías, materiales escolares y seguimiento académico personalizado para cada niño.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección Cómo Ayudar -->
+    <section id="ayudar">
+        <div class="container">
+            <h2 class="section-title reveal-left">Cómo Puedes Ayudar</h2>
+            <div class="programs-grid">
+                <div class="program-card reveal delay-1">
+                    <h3>Oración</h3>
+                    <p>Únete a nuestra cadena de oración por los niños y sus familias.</p>
+                </div>
+                
+                <div class="program-card reveal delay-2">
+                    <h3>Voluntariado</h3>
+                    <p>Dona tu tiempo y talentos para servir en nuestros programas.</p>
+                </div>
+                
+                <div class="program-card reveal delay-3">
+                    <h3>Donaciones</h3>
+                    <p>Contribuye con recursos para materiales, alimentos y mejoras de infraestructura.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección Contacto -->
+    <section id="contacto" class="contacto-section">
+        <div class="container">
+            <h2 class="section-title reveal-right">Contáctanos</h2>
+            <div class="contacto-content">
+                <p class="reveal delay-1"><strong>📍 Dirección:</strong> BuenaVista, Santa Cruz - Bolivia</p>
+                <p class="reveal delay-2"><strong>📞 Teléfono:</strong> 74667906</p>
+                <p class="reveal delay-3"><strong>📧 Email:</strong> choredaza2709@gmail.com</p>
+                <p class="reveal delay-4"><strong>⏰ Horario de atención:</strong> Lunes a Viernes 8:00 - 17:00</p>
+            </div>
+        </div>
+    </section>
+    
+    
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <!-- Información de tu sitio -->
+            <div class="footer-info">
+                <h3>FUMH Buenavista</h3>
+                <p>Centro Compassion International - Transformando vidas con el amor de Cristo</p>
+                <p>© 2023 Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- BOTONES FLOTANTES DE REDES SOCIALES - SOLO HTML -->
+    <div class="botones-flotantes-redes">
+        <!-- Facebook -->
+        <a href="https://www.facebook.com/ezequiel.choredaza.5" 
+           target="_blank" 
+           class="btn-red-flotante btn-red-facebook"
+           data-tooltip="Facebook"
+           aria-label="Facebook">
+            <i class="fab fa-facebook-f"></i>
+        </a>
+        
+        <!-- TikTok -->
+        <a href="https://www.tiktok.com/@chore_27_09" 
+           target="_blank" 
+           class="btn-red-flotante btn-red-tiktok"
+           data-tooltip="TikTok"
+           aria-label="TikTok">
+            <i class="fab fa-tiktok"></i>
+        </a>
+        
+        <!-- WhatsApp -->
+        <a href="74667906" 
+           target="_blank" 
+           class="btn-red-flotante btn-red-whatsapp"
+           data-tooltip="WhatsApp"
+           aria-label="WhatsApp">
+            <i class="fab fa-whatsapp"></i>
+            <span class="badge-whatsapp">!</span>
+        </a>
+    </div>
+
+    <!-- JavaScript de tu sitio -->
+    <script src="script.js"></script>
+</body>
+</html>

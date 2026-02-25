@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visión - FUMH Buenavista</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* ESTILOS ESPECÍFICOS PARA PÁGINA DE VISIÓN CON CARRUSEL */
+        .vision-page {
+            padding-top: 80px;
+            min-height: 100vh;
+        }
+        
+        /* CARRUSEL DE IMÁGENES */
+        .carousel-container {
+            position: relative;
+            width: 100%;
+            height: 70vh;
+            min-height: 500px;
+            overflow: hidden;
+            margin-bottom: 80px;
+        }
+        
+        .carousel-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .carousel-slide.active {
+            opacity: 1;
+        }
+        
+        .slide-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        
+        .slide-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0.7));
+        }
+        
+        .slide-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            color: white;
+            padding: 0 20px;
+            max-width: 800px;
+        }
+        
+        .slide-title {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.5);
+            line-height: 1.2;
+        }
+        
+        .slide-text {
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+            text-shadow: 1px 1px 5px rgba(0,0,0,0.5);
+            line-height: 1.6;
+        }
+        
+        .slide-number {
+            font-size: 1rem;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 5px 15px;
+            border-radius: 20px;
+            display: inline-block;
+            backdrop-filter: blur(5px);
+        }
+        
+        /* CONTROLES DEL CARRUSEL */
+        .carousel-controls {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            z-index: 10;
+        }
+        
+        .carousel-btn {
+            background: rgba(255, 255, 255, 0.3);
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+        }
+        
+        .carousel-btn:hover {
+            background: rgba(255, 255, 255, 0.5);
+            transform: scale(1.1);
+        }
+        
+        .carousel-dots {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.4);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .dot.active {
+            background: white;
+            transform: scale(1.3);
+        }
+        
+        /* CONTENIDO PRINCIPAL */
+        .vision-content {
+            max-width: 1200px;
+            margin: 0 auto 80px;
+            padding: 0 20px;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .section-header h2 {
+            font-size: 2.8rem;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+        
+        .section-icon {
+            font-size: 3rem;
+            color: #3498db;
+        }
+        
+        .section-subtitle {
+            font-size: 1.2rem;
+            color: #7f8c8d;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        /* TARJETAS DE PILARES */
+        .pillars-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 50px 0;
+        }
+        
+        .pillar-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            border-top: 5px solid #3498db;
+        }
+        
+        .pillar-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+        
+        .pillar-icon {
+            width: 80px;
+            height: 80px;
+            background: #3498db;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: -40px auto 20px;
+            color: white;
+            font-size: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .pillar-content {
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .pillar-content h3 {
+            color: #2c3e50;
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+        
+        .pillar-content p {
+            color: #666;
+            line-height: 1.6;
+        }
+        
+        /* ESTADÍSTICAS */
+        .stats-section {
+            background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+            padding: 80px 20px;
+            margin: 80px 0;
+            border-radius: 20px;
+            color: white;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .stat-item {
+            text-align: center;
+            padding: 30px 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .stat-number {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 10px;
+            color: #f1c40f;
+        }
+        
+        .stat-text {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        /* LÍNEA DE TIEMPO */
+        .timeline-section {
+            margin: 80px 0;
+        }
+        
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 50px auto;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 100%;
+            background: #3498db;
+        }
+        
+        .timeline-item {
+            margin-bottom: 50px;
+            position: relative;
+            width: 50%;
+            padding: 20px;
+        }
+        
+        .timeline-item:nth-child(odd) {
+            left: 0;
+            text-align: right;
+            padding-right: 60px;
+        }
+        
+        .timeline-item:nth-child(even) {
+            left: 50%;
+            padding-left: 60px;
+        }
+        
+        .timeline-dot {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: white;
+            border: 4px solid #3498db;
+            border-radius: 50%;
+            top: 20px;
+        }
+        
+        .timeline-item:nth-child(odd) .timeline-dot {
+            right: -8px;
+        }
+        
+        .timeline-item:nth-child(even) .timeline-dot {
+            left: -8px;
+        }
+        
+        .timeline-year {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #3498db;
+            margin-bottom: 10px;
+        }
+        
+        .timeline-content {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* CALL TO ACTION */
+        .cta-section {
+            text-align: center;
+            padding: 80px 20px;
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+            border-radius: 20px;
+            color: white;
+            margin: 80px 0;
+        }
+        
+        .cta-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+        
+        .cta-section p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 40px;
+            opacity: 0.9;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            padding: 15px 35px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .btn-primary {
+            background: white;
+            color: #e74c3c;
+        }
+        
+        .btn-primary:hover {
+            background: #f8f9fa;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+        
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-3px);
+        }
+        
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .carousel-container {
+                height: 60vh;
+                min-height: 400px;
+            }
+            
+            .slide-title {
+                font-size: 2.5rem;
+            }
+            
+            .slide-text {
+                font-size: 1.2rem;
+            }
+            
+            .carousel-controls {
+                bottom: 20px;
+            }
+            
+            .carousel-btn {
+                width: 40px;
+                height: 40px;
+                font-size: 1.2rem;
+            }
+            
+            .section-header h2 {
+                font-size: 2.2rem;
+                flex-direction: column;
+            }
+            
+            .timeline::before {
+                left: 20px;
+            }
+            
+            .timeline-item {
+                width: 100%;
+                left: 0 !important;
+                text-align: left !important;
+                padding: 20px 20px 20px 60px !important;
+            }
+            
+            .timeline-item:nth-child(odd) .timeline-dot,
+            .timeline-item:nth-child(even) .timeline-dot {
+                left: 12px;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .slide-title {
+                font-size: 2rem;
+            }
+            
+            .slide-text {
+                font-size: 1rem;
+            }
+            
+            .section-header h2 {
+                font-size: 1.8rem;
+            }
+            
+            .pillars-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* ANIMACIONES */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+        
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* BOTÓN HAMBURGUESA PARA VISION.HTML - CORREGIDO */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 10px;
+            z-index: 1001;
+            position: relative;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: white;
+            margin: 3px 0;
+            transition: all 0.3s ease;
+            border-radius: 2px;
+            display: block;
+        }
+
+        /* Transformación al activar */
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -6px);
+        }
+
+        /* Para móvil */
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
+            
+            /* FIX: El menú debe tener un ID específico */
+            .dropdown-menu {
+                display: none !important;
+                position: fixed;
+                top: 80px;
+                right: -300px;
+                width: 280px;
+                height: calc(100vh - 80px);
+                background: #2c3e50;
+                flex-direction: column;
+                padding: 20px;
+                gap: 0;
+                transition: right 0.4s ease;
+                z-index: 999;
+                overflow-y: auto;
+            }
+            
+            .dropdown-menu.active {
+                display: flex !important;
+                right: 0;
+            }
+            
+            .dropdown-menu li {
+                width: 100%;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            }
+            
+            .dropdown-menu li:last-child {
+                border-bottom: none;
+            }
+            
+            .dropdown-menu a {
+                display: block;
+                padding: 15px;
+                text-align: left;
+                font-size: 1.1rem;
+                color: white;
+                text-decoration: none;
+            }
+            
+            
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo-container">
+                    <img src="imagenes-fum/fundacion.jpg" alt="Logo FUMH" class="logo-img">
+                    <div class="logo-text">FUMH Buenavista</div>
+                </div>
+                <button class="hamburger" id="hamburger" aria-label="Menú">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                <ul class="dropdown-menu" id="dropdownMenu">
+                    <li><a href="index.html#inicio" class="menu-enlace">Inicio</a></li>
+                    
+                    <!-- Nosotros con Submenú -->
+                    <li class="menu-item has-submenu">
+                        <a href="index.html#nosotros" class="menu-enlace">
+                            Nosotros 
+                            <span class="submenu-arrow">▼</span>
+                        </a>
+                        <ul class="submenu">
+                            <li><a href="vision.html" class="submenu-enlace"> Visión</a></li>
+                            <li><a href="mision.html" class="submenu-enlace"> Misión</a></li>
+                            <li><a href="director.html" class="submenu-enlace"> Director y Plantel</a></li>
+                            <li><a href="trabajamos.html" class="submenu-enlace"> ¿Dónde Trabajamos?</a></li>
+                            <li><a href="hacemos.html" class="submenu-enlace"> ¿Qué Hacemos?</a></li>
+                        </ul>
+                    </li>
+                    
+                    <li><a href="index.html#programas" class="menu-enlace">Programas</a></li>
+                    <li><a href="index.html#ayudar" class="menu-enlace">Cómo Ayudar</a></li>
+                    <li><a href="index.html#contacto" class="menu-enlace">Contacto</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- PÁGINA DE VISIÓN CON CARRUSEL -->
+    <main class="vision-page">
+        <!-- CARRUSEL DE IMÁGENES -->
+        <section class="carousel-container">
+            <!-- Slide 1 -->
+            <div class="carousel-slide active">
+                <img src="https://images.unsplash.com/photo-1511632765486-a01980e01a18?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80" 
+                     alt="Niños aprendiendo" class="slide-image">
+                <div class="slide-overlay"></div>
+                <div class="slide-content">
+                    <h1 class="slide-title">Una Visión de Esperanza</h1>
+                    <p class="slide-text">Creemos en un futuro donde cada niño de BuenaVista tenga la oportunidad 
+                    de desarrollar su máximo potencial espiritual, académico y personal.</p>
+                    <div class="slide-number">01 / 03</div>
+                </div>
+            </div>
+            
+            <!-- Slide 2 -->
+            <div class="carousel-slide">
+                <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80" 
+                     alt="Comunidad unida" class="slide-image">
+                <div class="slide-overlay"></div>
+                <div class="slide-content">
+                    <h1 class="slide-title">Transformando Comunidades</h1>
+                    <p class="slide-text">Más que un centro educativo, somos agentes de cambio que impactamos 
+                    familias enteras con el amor de Cristo y valores transformadores.</p>
+                    <div class="slide-number">02 / 03</div>
+                </div>
+            </div>
+            
+            <!-- Slide 3 -->
+            <div class="carousel-slide">
+                <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80" 
+                     alt="Graduación de jóvenes" class="slide-image">
+                <div class="slide-overlay"></div>
+                <div class="slide-content">
+                    <h1 class="slide-title">Formando Líderes del Mañana</h1>
+                    <p class="slide-text">Preparamos a la próxima generación de líderes cristianos 
+                    comprometidos con el desarrollo integral de su comunidad.</p>
+                    <div class="slide-number">03 / 03</div>
+                </div>
+            </div>
+            
+            <!-- Controles del carrusel -->
+            <div class="carousel-controls">
+                <button class="carousel-btn prev-btn">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                
+                <div class="carousel-dots">
+                    <div class="dot active" data-slide="0"></div>
+                    <div class="dot" data-slide="1"></div>
+                    <div class="dot" data-slide="2"></div>
+                </div>
+                
+                <button class="carousel-btn next-btn">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+        </section>
+
+        <!-- CONTENIDO PRINCIPAL -->
+        <section class="vision-content">
+            <!-- Encabezado -->
+            <div class="section-header fade-in">
+                <h2>
+                    <span class="section-icon"></span>
+                    Nuestra Visión Estratégica
+                </h2>
+                <p class="section-subtitle">Un camino claro hacia el impacto transformador en BuenaVista y más allá</p>
+            </div>
+            
+            <!-- Pilares Fundamentales -->
+            <div class="pillars-grid">
+                <div class="pillar-card fade-in">
+                    <div class="pillar-icon">
+                        <i class="fas fa-cross"></i>
+                    </div>
+                    <div class="pillar-content">
+                        <h3>Fundamento Cristiano</h3>
+                        <p>Ser un centro donde la fe en Jesucristo sea el cimiento de todo 
+                        aprendizaje y desarrollo, formando discípulos comprometidos.</p>
+                    </div>
+                </div>
+                
+                <div class="pillar-card fade-in">
+                    <div class="pillar-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <div class="pillar-content">
+                        <h3>Excelencia Educativa</h3>
+                        <p>Proveer educación de calidad que permita romper el ciclo de 
+                        pobreza y abrir puertas a oportunidades académicas y profesionales.</p>
+                    </div>
+                </div>
+                
+                <div class="pillar-card fade-in">
+                    <div class="pillar-icon">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <div class="pillar-content">
+                        <h3>Desarrollo Integral</h3>
+                        <p>Atender todas las dimensiones del ser humano: espiritual, 
+                        emocional, física, social y académica.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Estadísticas de Impacto -->
+            <section class="stats-section fade-in">
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-number">18+</div>
+                        <div class="stat-text">Años de servicio</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">2,500+</div>
+                        <div class="stat-text">Vidas transformadas</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">45</div>
+                        <div class="stat-text">Proyectos completados</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">300+</div>
+                        <div class="stat-text">Voluntarios activos</div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Línea de Tiempo -->
+            <section class="timeline-section">
+                <div class="section-header fade-in">
+                    <h2> Nuestra Hoja de Ruta</h2>
+                    <p class="section-subtitle">Metas estratégicas para los próximos años</p>
+                </div>
+                
+                <div class="timeline">
+                    <div class="timeline-item fade-in">
+                        <div class="timeline-year">2025</div>
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <h3>Expansión de Capacidad</h3>
+                            <p>Ampliar nuestras instalaciones para atender a 500 niños 
+                            y adolescentes de manera simultánea.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item fade-in">
+                        <div class="timeline-year">2026</div>
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <h3>Centro de Innovación</h3>
+                            <p>Implementar laboratorio de computación y biblioteca 
+                            digital con acceso a recursos educativos modernos.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item fade-in">
+                        <div class="timeline-year">2027</div>
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <h3>Programas Técnicos</h3>
+                            <p>Lanzar programas de formación técnica en áreas 
+                            demandadas por el mercado laboral local.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item fade-in">
+                        <div class="timeline-year">2030</div>
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <h3>Centro Modelo Nacional</h3>
+                            <p>Convertirnos en referencia nacional para programas 
+                            de desarrollo comunitario basados en valores cristianos.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Call to Action -->
+            <section class="cta-section fade-in">
+                <h2>¿Compartes Nuestra Visión?</h2>
+                <p>Tu apoyo puede hacer la diferencia en la vida de un niño. 
+                Únete a nosotros para construir un futuro mejor para BuenaVista.</p>
+                <div class="cta-buttons">
+                    <a href="index.html#ayudar" class="btn btn-primary">
+                        <i class="fas fa-handshake"></i>
+                        Únete como Voluntario
+                    </a>
+                    <a href="index.html#contacto" class="btn btn-secondary">
+                        <i class="fas fa-info-circle"></i>
+                        Más Información
+                    </a>
+                </div>
+            </section>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-info">
+                <h3>FUMH Buenavista</h3>
+                <p>Centro Compassion International - Transformando vidas con el amor de Cristo</p>
+                <p>© 2023 Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Botones Flotantes -->
+    <div class="botones-flotantes-redes">
+        <a href="https://www.facebook.com/ezequiel.choredaza.5" class="btn-red-flotante btn-red-facebook">
+            <i class="fab fa-facebook-f"></i>
+        </a>
+        <a href="https://www.tiktok.com/@user27_09_2006" class="btn-red-flotante btn-red-tiktok">
+            <i class="fab fa-tiktok"></i>
+        </a>
+        <a href="https://wa.me/59174667906" class="btn-red-flotante btn-red-whatsapp">
+            <i class="fab fa-whatsapp"></i>
+            <span class="badge-whatsapp">!</span>
+        </a>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="script.js"></script>
+    <script>
+        // JavaScript ESPECÍFICO solo para el carrusel en visión.html
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log(' Página de Visión - Carrusel iniciado');
+            
+            // CARRUSEL
+            const slides = document.querySelectorAll('.carousel-slide');
+            const dots = document.querySelectorAll('.dot');
+            const prevBtn = document.querySelector('.prev-btn');
+            const nextBtn = document.querySelector('.next-btn');
+            let currentSlide = 0;
+            let carouselInterval;
+            
+            function showSlide(n) {
+                slides.forEach(slide => slide.classList.remove('active'));
+                dots.forEach(dot => dot.classList.remove('active'));
+                
+                currentSlide = (n + slides.length) % slides.length;
+                slides[currentSlide].classList.add('active');
+                dots[currentSlide].classList.add('active');
+            }
+            
+            function nextSlide() { 
+                showSlide(currentSlide + 1); 
+            }
+            
+            function prevSlide() { 
+                showSlide(currentSlide - 1); 
+            }
+            
+            // Iniciar carrusel
+            if (slides.length > 0) {
+                // Event listeners
+                if (nextBtn) nextBtn.addEventListener('click', function() {
+                    clearInterval(carouselInterval);
+                    nextSlide();
+                    startCarousel();
+                });
+                
+                if (prevBtn) prevBtn.addEventListener('click', function() {
+                    clearInterval(carouselInterval);
+                    prevSlide();
+                    startCarousel();
+                });
+                
+                dots.forEach((dot, index) => {
+                    dot.addEventListener('click', function() {
+                        clearInterval(carouselInterval);
+                        showSlide(index);
+                        startCarousel();
+                    });
+                });
+                
+                // Auto carrusel
+                function startCarousel() {
+                    carouselInterval = setInterval(nextSlide, 5000);
+                }
+                
+                startCarousel();
+                console.log('🔄 Carrusel iniciado con ' + slides.length + ' slides');
+            }
+            
+            // ANIMACIONES AL SCROLL
+            function initScrollAnimations() {
+                const elements = document.querySelectorAll('.fade-in');
+                
+                function checkScroll() {
+                    elements.forEach(el => {
+                        const rect = el.getBoundingClientRect();
+                        if (rect.top < window.innerHeight - 100) {
+                            el.classList.add('visible');
+                        }
+                    });
+                }
+                
+                // Verificar inmediatamente y al scroll
+                checkScroll();
+                window.addEventListener('scroll', checkScroll);
+                window.addEventListener('resize', checkScroll);
+                
+                console.log('✨ Animaciones al scroll configuradas: ' + elements.length + ' elementos');
+            }
+            
+            // Iniciar después de un pequeño delay
+            setTimeout(initScrollAnimations, 300);
+            
+            // WhatsApp
+            const whatsappBtn = document.querySelector('.btn-red-whatsapp');
+            if (whatsappBtn) {
+                whatsappBtn.href = `https://wa.me/59174667906?text=${encodeURIComponent('Hola, me contacto desde la página de Visión de FUMH Buenavista')}`;
+                console.log('📱 WhatsApp configurado');
+            }
+            
+            console.log('✅ Página de Visión completamente cargada');
+        });
+    </script>
+</body>
+</html>
