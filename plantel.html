@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Director y Plantel - FUMH Buenavista</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* ============================================
+           ESTILOS ESPECÍFICOS PARA DIRECTOR Y PLANTEL
+           ============================================ */
+        .plantel-page {
+            padding-top: 80px;
+            min-height: 100vh;
+        }
+        
+        /* Hero Section */
+        .plantel-hero {
+            position: relative;
+            width: 100%;
+            height: 50vh;
+            min-height: 350px;
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), 
+                        url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            margin-bottom: 60px;
+        }
+        
+        .plantel-hero-content h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.5);
+        }
+        
+        .plantel-hero-content p {
+            font-size: 1.3rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        /* Contenedor principal */
+        .plantel-container {
+            max-width: 1200px;
+            margin: 0 auto 80px;
+            padding: 0 20px;
+        }
+        
+        /* Sección Director */
+        .director-section {
+            margin: 60px 0 80px;
+        }
+        
+        .director-titulo {
+            font-size: 2.2rem;
+            color: #2c3e50;
+            margin-bottom: 40px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .director-titulo::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: #e67e22;
+            margin: 15px auto 0;
+        }
+        
+        .director-card {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 40px;
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            border-left: 5px solid #e67e22;
+        }
+        
+        .director-imagen {
+            width: 100%;
+            height: 350px;
+            object-fit: cover;
+        }
+        
+        .director-info {
+            padding: 40px 40px 40px 0;
+        }
+        
+        .director-info h2 {
+            font-size: 2.2rem;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .director-cargo {
+            font-size: 1.3rem;
+            color: #e67e22;
+            font-weight: bold;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .director-descripcion {
+            color: #666;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+        
+        .director-contacto {
+            display: flex;
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .director-contacto-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #555;
+        }
+        
+        .director-contacto-item i {
+            color: #e67e22;
+        }
+        
+        /* Estadísticas rápidas del director */
+        .director-stats {
+            display: flex;
+            gap: 30px;
+            margin-top: 30px;
+            padding-top: 30px;
+            border-top: 1px solid #eee;
+        }
+        
+        .stat-small {
+            text-align: center;
+        }
+        
+        .stat-small .numero {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #e67e22;
+        }
+        
+        .stat-small .label {
+            color: #777;
+            font-size: 0.9rem;
+        }
+        
+        /* Sección de valores */
+        .valores-section {
+            background: linear-gradient(135deg, #f39c12, #e67e22);
+            padding: 60px 40px;
+            border-radius: 20px;
+            color: white;
+            margin: 60px 0;
+            text-align: center;
+        }
+        
+        .valores-section h3 {
+            font-size: 2rem;
+            margin-bottom: 40px;
+        }
+        
+        .valores-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .valor-item {
+            background: rgba(255,255,255,0.2);
+            padding: 25px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .valor-item i {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+        
+        .valor-item h4 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+        }
+        
+        /* Sección Voluntarios */
+        .voluntarios-section {
+            margin: 80px 0;
+        }
+        
+        .voluntarios-titulo {
+            font-size: 2.2rem;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .voluntarios-subtitulo {
+            text-align: center;
+            color: #666;
+            max-width: 700px;
+            margin: 0 auto 50px;
+            font-size: 1.1rem;
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid #27ae60;
+        }
+        
+        .voluntarios-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+        
+        .voluntario-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+            border-bottom: 4px solid #3498db;
+        }
+        
+        .voluntario-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+        
+        .voluntario-imagen {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        
+        .voluntario-info {
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .voluntario-info h3 {
+            font-size: 1.3rem;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+        
+        .voluntario-cargo {
+            color: #3498db;
+            font-weight: bold;
+            margin-bottom: 10px;
+            font-size: 0.95rem;
+        }
+        
+        .voluntario-descripcion {
+            color: #666;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            margin-bottom: 15px;
+        }
+        
+        .incentivo-badge {
+            display: inline-block;
+            background: #27ae60;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+        
+        /* Sección Personal de Apoyo (Cocinera) */
+        .apoyo-section {
+            margin: 80px 0;
+        }
+        
+        .apoyo-titulo {
+            font-size: 2rem;
+            color: #2c3e50;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+        
+        .apoyo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .apoyo-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+            border-bottom: 4px solid #e74c3c;
+        }
+        
+        .apoyo-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+        }
+        
+        .apoyo-imagen {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+        
+        .apoyo-info {
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .apoyo-info h3 {
+            font-size: 1.5rem;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+        
+        .apoyo-cargo {
+            color: #e74c3c;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .apoyo-descripcion {
+            color: #666;
+            line-height: 1.6;
+        }
+        
+        /* Sección de agradecimiento */
+        .agradecimiento-section {
+            background: linear-gradient(135deg, #2c3e50, #34495e);
+            padding: 60px 40px;
+            border-radius: 20px;
+            color: white;
+            text-align: center;
+            margin: 80px 0;
+        }
+        
+        .agradecimiento-section h3 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+        
+        .agradecimiento-section p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto 30px;
+            opacity: 0.9;
+        }
+        
+        .stats-equipo {
+            display: flex;
+            justify-content: center;
+            gap: 50px;
+            margin-top: 40px;
+        }
+        
+        .stat-equipo-item {
+            text-align: center;
+        }
+        
+        .stat-equipo-item .numero {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #f1c40f;
+        }
+        
+        .stat-equipo-item .label {
+            font-size: 1rem;
+            opacity: 0.8;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .plantel-hero-content h1 {
+                font-size: 2.5rem;
+            }
+            
+            .director-card {
+                grid-template-columns: 1fr;
+            }
+            
+            .director-imagen {
+                height: 300px;
+            }
+            
+            .director-info {
+                padding: 20px;
+            }
+            
+            .director-contacto {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .director-stats {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .stats-equipo {
+                flex-direction: column;
+                gap: 20px;
+            }
+        }
+        
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+        
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo-container">
+                    <img src="imagenes-fum/fundacion.jpg" alt="Logo FUMH" class="logo-img">
+                    <div class="logo-text">FUMH Buenavista</div>
+                </div>
+                <button class="hamburger" id="hamburger" aria-label="Menú">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                <ul class="dropdown-menu" id="dropdownMenu">
+                    <li><a href="index.html#inicio" class="menu-enlace">Inicio</a></li>
+                    <li class="menu-item has-submenu">
+                        <a href="index.html#nosotros" class="menu-enlace">
+                            Nosotros 
+                            <span class="submenu-arrow">▼</span>
+                        </a>
+                        <ul class="submenu">
+                            <li><a href="vision.html" class="submenu-enlace">👁️ Visión</a></li>
+                            <li><a href="mision.html" class="submenu-enlace">🎯 Misión</a></li>
+                            <li><a href="director.html" class="submenu-enlace">👨‍💼 Director y Plantel</a></li>
+                            <li><a href="trabajamos.html" class="submenu-enlace">📍 ¿Dónde Trabajamos?</a></li>
+                            <li><a href="hacemos.html" class="submenu-enlace">🛠️ ¿Qué Hacemos?</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="index.html#programas" class="menu-enlace">Programas</a></li>
+                    <li><a href="index.html#ayudar" class="menu-enlace">Cómo Ayudar</a></li>
+                    <li><a href="index.html#contacto" class="menu-enlace">Contacto</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- PÁGINA DIRECTOR Y PLANTEL -->
+    <main class="plantel-page">
+        <!-- Hero Section -->
+        <section class="plantel-hero">
+            <div class="plantel-hero-content">
+                <h1 class="fade-in">👨‍💼 Director y Plantel</h1>
+                <p class="fade-in">Conoce al equipo que hace posible esta misión, liderado por nuestro director y acompañado por voluntarios comprometidos</p>
+            </div>
+        </section>
+
+        <div class="plantel-container">
+            <!-- SECCIÓN DIRECTOR -->
+            <section class="director-section">
+                <h2 class="director-titulo fade-in">Nuestro Director</h2>
+                
+                <div class="director-card fade-in">
+                    <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80" 
+                         alt="Director" 
+                         class="director-imagen">
+                    
+                    <div class="director-info">
+                        <h2>Ezequiel Choré</h2>
+                        <div class="director-cargo">
+                            <i class="fas fa-user-tie"></i>
+                            Director General
+                        </div>
+                        <p class="director-descripcion">
+                            Con más de 10 años de experiencia en trabajo social y comunitario, nuestro director lidera con vocación de servicio y amor por los niños. Es el encargado de coordinar todos los programas, supervisar el equipo de voluntarios y mantener el vínculo con Compassion International.
+                        </p>
+                        <p class="director-descripcion">
+                            Su compromiso con la comunidad de BuenaVista ha sido fundamental para el crecimiento y sostenibilidad del centro a lo largo de los años.
+                        </p>
+                        
+                        <div class="director-contacto">
+                            <div class="director-contacto-item">
+                                <i class="fas fa-envelope"></i>
+                                director@fumhbuenavista.org
+                            </div>
+                            <div class="director-contacto-item">
+                                <i class="fas fa-phone-alt"></i>
+                                74667906
+                            </div>
+                        </div>
+                        
+                        <div class="director-stats">
+                            <div class="stat-small">
+                                <div class="numero">10+</div>
+                                <div class="label">Años de servicio</div>
+                            </div>
+                            <div class="stat-small">
+                                <div class="numero">500+</div>
+                                <div class="label">Familias impactadas</div>
+                            </div>
+                            <div class="stat-small">
+                                <div class="numero">15</div>
+                                <div class="label">Voluntarios a cargo</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Valores del equipo -->
+            <section class="valores-section fade-in">
+                <h3>Nuestros Valores como Equipo</h3>
+                <div class="valores-grid">
+                    <div class="valor-item">
+                        <i class="fas fa-heart"></i>
+                        <h4>Amor</h4>
+                        <p>Servimos con amor a cada niño y familia</p>
+                    </div>
+                    <div class="valor-item">
+                        <i class="fas fa-hand-holding-heart"></i>
+                        <h4>Compromiso</h4>
+                        <p>Dedicación total a la misión</p>
+                    </div>
+                    <div class="valor-item">
+                        <i class="fas fa-users"></i>
+                        <h4>Trabajo en Equipo</h4>
+                        <p>Juntos logramos más</p>
+                    </div>
+                    <div class="valor-item">
+                        <i class="fas fa-cross"></i>
+                        <h4>Fe</h4>
+                        <p>Fundamentados en Cristo</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECCIÓN VOLUNTARIOS -->
+            <section class="voluntarios-section">
+                <h2 class="voluntarios-titulo fade-in">🤝 Nuestros Voluntarios</h2>
+                
+                <div class="voluntarios-subtitulo fade-in">
+                    <i class="fas fa-heart" style="color: #e74c3c;"></i>
+                    Contamos con un equipo de voluntarios que entregan su tiempo y talento de manera desinteresada. 
+                    <strong>No reciben sueldo</strong>, pero al final del año se les otorga un incentivo especial como reconocimiento a su invaluable labor.
+                </div>
+                
+                <div class="voluntarios-grid">
+                    <!-- Voluntario 1 -->
+                    <div class="voluntario-card fade-in">
+                        <img src="https://images.unsplash.com/photo-1494790108777-847ef6807ce0?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80" 
+                             alt="Voluntaria" 
+                             class="voluntario-imagen">
+                        <div class="voluntario-info">
+                            <h3>María González</h3>
+                            <div class="voluntario-cargo">Voluntaria - Educación Cristiana</div>
+                            <p class="voluntario-descripcion">Encargada de los devocionales y la enseñanza bíblica para los niños. Voluntaria desde 2018.</p>
+                            <div class="incentivo-badge">
+                                <i class="fas fa-gift"></i> Incentivo anual
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Voluntario 2 -->
+                    <div class="voluntario-card fade-in">
+                        <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80" 
+                             alt="Voluntario" 
+                             class="voluntario-imagen">
+                        <div class="voluntario-info">
+                            <h3>Juan Carlos Rojas</h3>
+                            <div class="voluntario-cargo">Voluntario - Refuerzo Escolar</div>
+                            <p class="voluntario-descripcion">Apoya en tareas escolares y matemáticas. Estudiante universitario de ingeniería.</p>
+                            <div class="incentivo-badge">
+                                <i class="fas fa-gift"></i> Incentivo anual
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Voluntario 3 -->
+                    <div class="voluntario-card fade-in">
+                        <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80" 
+                             alt="Voluntaria" 
+                             class="voluntario-imagen">
+                        <div class="voluntario-info">
+                            <h3>Ana Paula Méndez</h3>
+                            <div class="voluntario-cargo">Voluntaria - Música y Arte</div>
+                            <p class="voluntario-descripcion">Dirige el coro infantil y talleres de arte. Voluntaria desde 2020.</p>
+                            <div class="incentivo-badge">
+                                <i class="fas fa-gift"></i> Incentivo anual
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Voluntario 4 -->
+                    <div class="voluntario-card fade-in">
+                        <img src="https://images.unsplash.com/photo-1552058544-f2b08422138a?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80" 
+                             alt="Voluntario" 
+                             class="voluntario-imagen">
+                        <div class="voluntario-info">
+                            <h3>Pedro Suárez</h3>
+                            <div class="voluntario-cargo">Voluntario - Deportes</div>
+                            <p class="voluntario-descripcion">Coordina las actividades deportivas y recreativas. Exalumno del programa.</p>
+                            <div class="incentivo-badge">
+                                <i class="fas fa-gift"></i> Incentivo anual
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECCIÓN PERSONAL DE APOYO (COCINERA) -->
+            <section class="apoyo-section">
+                <h2 class="apoyo-titulo fade-in">🍳 Personal de Apoyo</h2>
+                
+                <div class="apoyo-grid">
+                    <!-- Cocinera -->
+                    <div class="apoyo-card fade-in">
+                        <img src="https://images.unsplash.com/photo-1594744803329-e58b31de8bf5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80" 
+                             alt="Cocinera" 
+                             class="apoyo-imagen">
+                        <div class="apoyo-info">
+                            <h3>Rosa Mamani</h3>
+                            <div class="apoyo-cargo">
+                                <i class="fas fa-utensils"></i> Cocinera
+                            </div>
+                            <p class="apoyo-descripcion">
+                                Encargada de preparar los alimentos nutritivos para los niños. Con más de 8 años en el centro, doña Rosa es parte fundamental del equipo, asegurando que cada niño reciba una alimentación balanceada y con mucho amor.
+                            </p>
+                            <div style="margin-top: 15px;">
+                                <span class="incentivo-badge" style="background: #e67e22;">
+                                    <i class="fas fa-heart"></i> Personal fijo
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Podrías agregar más personal de apoyo aquí si lo deseas -->
+                </div>
+            </section>
+
+            <!-- Estadísticas del equipo -->
+            <section class="agradecimiento-section fade-in">
+                <h3>🙏 Agradecimiento a Nuestro Equipo</h3>
+                <p>
+                    Cada uno de los que forman parte de FUMH Buenavista entrega lo mejor de sí para ver a los niños crecer y desarrollarse. 
+                    A los voluntarios que sirven sin esperar nada a cambio, gracias por su generosidad. A doña Rosa, gracias por alimentar 
+                    cuerpos y corazones. Y a nuestro director, gracias por su liderazgo incansable.
+                </p>
+                
+                <div class="stats-equipo">
+                    <div class="stat-equipo-item">
+                        <div class="numero">1</div>
+                        <div class="label">Director</div>
+                    </div>
+                    <div class="stat-equipo-item">
+                        <div class="numero">8+</div>
+                        <div class="label">Voluntarios activos</div>
+                    </div>
+                    <div class="stat-equipo-item">
+                        <div class="numero">1</div>
+                        <div class="label">Cocinera</div>
+                    </div>
+                    <div class="stat-equipo-item">
+                        <div class="numero">10+</div>
+                        <div class="label">Años de servicio</div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-info">
+                <h3>FUMH Buenavista</h3>
+                <p>Centro Compassion International - Transformando vidas con el amor de Cristo</p>
+                <p>© 2024 Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Botones Flotantes -->
+    <div class="botones-flotantes-redes">
+        <a href="https://www.facebook.com/ezequiel.choredaza.5" class="btn-red-flotante btn-red-facebook">
+            <i class="fab fa-facebook-f"></i>
+        </a>
+        <a href="https://www.tiktok.com/@user27_09_2006" class="btn-red-flotante btn-red-tiktok">
+            <i class="fab fa-tiktok"></i>
+        </a>
+        <a href="https://wa.me/59174667906" class="btn-red-flotante btn-red-whatsapp">
+            <i class="fab fa-whatsapp"></i>
+            <span class="badge-whatsapp">!</span>
+        </a>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Animaciones al scroll
+            const fadeElements = document.querySelectorAll('.fade-in');
+            
+            function checkFade() {
+                fadeElements.forEach(el => {
+                    const rect = el.getBoundingClientRect();
+                    if (rect.top < window.innerHeight - 100) {
+                        el.classList.add('visible');
+                    }
+                });
+            }
+            
+            checkFade();
+            window.addEventListener('scroll', checkFade);
+            
+            console.log('👨‍💼 Página Director y Plantel cargada');
+        });
+    </script>
+</body>
+</html>
